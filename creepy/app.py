@@ -1,4 +1,6 @@
 import base64
+from face import face_blit
+import cv
 from flask import Flask, render_template, request
 app = Flask(__name__)
 
@@ -14,8 +16,13 @@ def upload():
     bin_im = base64.b64decode(base64_im)
     #TODO this is super janky
     with open('tmp.png', 'w') as f:
-        f.write(x)
-    return 'temp'
+        f.write(bin_im)
+    src_image = cv.LoadImageM('tmp.png')
+    dst_image = cv.LoadImageM('img/chris.jpg')
+    dst_image = face_blit(src_image, dst_image)
+    cv.SaveImage('out.jpg', dst_image)
+    with open('out.jpg') as f:
+        return base64.b64encode(f.read())
 
 if __name__ == "__main__":
     app.run(debug=True)
