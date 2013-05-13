@@ -27,6 +27,9 @@
         $("#snap").click(function () {
             ctx.drawImage(video, 0, 0, 640, 480);
             var img = canvas.toDataURL("image/png");
+            $.post("/upload", {"image": img},function(data) {
+                console.log(data);
+            });
         });
     });
 }(window.jQuery));
