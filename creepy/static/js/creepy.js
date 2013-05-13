@@ -27,8 +27,8 @@
         $("#snap").click(function () {
             ctx.drawImage(video, 0, 0, 640, 480);
             var img = canvas.toDataURL("image/png");
-            $.post("/upload", {"image": img},function(data) {
-                $("#face").html('<img src="data:image/png;base64,' + data + '" />')
+            $.post("/upload", {"image": img}, function (data) {
+                $("#face").html('<img src="data:image/png;base64,' + data + '" />');
                 console.log(data);
             });
         });
